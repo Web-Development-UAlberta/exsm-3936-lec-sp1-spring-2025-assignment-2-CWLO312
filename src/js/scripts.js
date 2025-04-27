@@ -73,12 +73,42 @@ class rectangle extends shape {
         }
     }
   
+  class circle extends shape {
+    constructor(radius) {
+        super();
+        this.radius = radius;
+      }
+    get diameter() {
+      return this.radius * 2;
+    } 
+    get circumference() {
+      return this.diameter * Math.PI;
+    }
+    get perimeter() {
+      return this.circumference;
+  }
+    get area() {
+      return this.radius * this.radius * Math.PI; 
+    }
+    contain() {
+      if (this.radius > 0) {
+        return this.diameter * this.diameter;
+      }
+      else {return `This is not a valid circle`};
+      }
+    }
 
-  const shapeArray = [];
+  let shapeArray = [];
+  let shapeInput;
+  
+  do{
   output ("Select a Shape to Create \n1. Rectangle \n2. Triangle \n3. Circle \n0. Exit")
-  const shapeInput = parseInt (await input ("Choose: "));
+  shapeInput = parseInt (await input ("Choose: "));
 
-  if (shapeInput === 1) {
+  if (shapeInput !== 1 && shapeInput !== 2 && shapeInput !== 3 && shapeInput !== 0) {
+    output ("Invalid Input");
+    }
+  else if (shapeInput === 1) {   
     output ("Creating Rectangle");
     const length = parseInt (await input ("Please enter Length: "));
     const width = parseInt (await input ("Please enter Width: "));
@@ -86,10 +116,10 @@ class rectangle extends shape {
     shapeArray.push(shapeRectangle);
     output (`Total Perimeter: ${shapeRectangle.perimeter}`);
     output (`Total Area: ${shapeRectangle.area}`);
-    output (`Total Area of Containing Square: ${shapeRectangle.contain()}`)
-  }
+    output (`Total Area of Containing Square: ${shapeRectangle.contain()}`);
+    }
 
-  if (shapeInput === 2) {
+  else if (shapeInput === 2) {
     output ("Creating Triangle");
     const base = parseInt (await input ("Please enter Base: "));
     const height = parseInt (await input ("Please enter Height: "));
@@ -97,7 +127,27 @@ class rectangle extends shape {
     shapeArray.push(shapeTriangle);
     output (`Total Perimeter: ${shapeTriangle.perimeter}`);
     output (`Total Area: ${shapeTriangle.area}`);
-    output (`Total Area of Containing Square: ${shapeTriangle.contain()}`)
-  }
+    output (`Total Area of Containing Square: ${shapeTriangle.contain()}`);
+    }
+  
+  else if (shapeInput === 3) {
+    output ("Creating Circle");
+    const radius = parseInt (await input ("Please enter Radius: "));
+    const shapeCircle = new circle (radius);
+    shapeArray.push(shapeCircle);
+    output (`Total Circumference: ${shapeCircle.perimeter}`);
+    output (`Total Area: ${shapeCircle.area}`);
+    output (`Total Area of Containing Square: ${shapeCircle.contain()}`);
+    }
+  
+  else {
+    output ("Goodbye");
+    }
+  
+  } while (shapeInput !== 0);
 
+const shapeCounter = shapeArray.length;
+for (let i = 0; i < shapeCounter; i++) {
+  output (`Shape ${i + 1}: ${shapeArray[i].contain()}`);
+}
 }

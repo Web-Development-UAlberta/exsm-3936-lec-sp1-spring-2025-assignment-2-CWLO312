@@ -104,14 +104,37 @@ class rectangle extends shape {
       }
     }
 
+class semicircle extends shape {
+  constructor(radius) {
+      super();
+      this.radius = radius;
+    }
+  get diameter() {
+    return this.radius * 2;
+  } 
+  get perimeter() {
+    return this.radius * Math.PI + this.radius * 2;
+}
+  get area() {
+    return this.radius * this.radius * Math.PI /2; 
+  }
+  contain() {
+    if (this.radius > 0) {
+      const containSquare = new rectangle(this.diameter, this.diameter); 
+      return containSquare.area;
+    }     
+    else {return `This is not a valid semicircle`};
+  }
+}
+
   let shapeArray = [];
   let shapeInput;
   
   do{
-  output ("Select a Shape to Create \n1. Rectangle \n2. Triangle \n3. Circle \n0. Exit")
+  output ("Select a Shape to Create \n1. Rectangle \n2. Triangle \n3. Circle \n4. Semicircle \n0. Exit")
   shapeInput = parseInt (await input ("Choose: "));
 
-  if (shapeInput !== 1 && shapeInput !== 2 && shapeInput !== 3 && shapeInput !== 0) {
+  if (shapeInput !== 1 && shapeInput !== 2 && shapeInput !== 3 && shapeInput !== 4 && shapeInput !== 0) {
     output ("Invalid Input");
     }
   else if (shapeInput === 1) {   
@@ -159,6 +182,21 @@ class rectangle extends shape {
     output (`Total Circumference: ${shapeCircle.perimeter}`);
     output (`Total Area: ${shapeCircle.area}`);
     output (`Total Area of Containing Square: ${shapeCircle.contain()}`);
+    }
+  }
+
+  else if (shapeInput === 4) {
+    output ("Creating Semicircle");
+    const radius = parseInt (await input ("Please enter Radius: "));
+    if (isNaN (radius) || radius <= 0) {
+      output ("Invalid Input");
+    }
+    else {
+    const shapeSemicircle = new semicircle (radius);
+    shapeArray.push(shapeSemicircle);
+    output (`Total Perimeter: ${shapeSemicircle.perimeter}`);
+    output (`Total Area: ${shapeSemicircle.area}`);
+    output (`Total Area of Containing Square: ${shapeSemicircle.contain()}`);
     }
   }
 

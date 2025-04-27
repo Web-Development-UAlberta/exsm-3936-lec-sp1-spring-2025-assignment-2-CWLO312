@@ -37,14 +37,17 @@ class rectangle extends shape {
   }
   contain() {
     if (this.isSquare === true) {
-      return this.length * this.width;
+      const containSquare = new rectangle(this.length, this.width);
+      return containSquare.area;
     }
     else if (this.isSquare === false) {
       if (this.length > 0 && this.width > 0 && this.length > this.width) {
-        return this.length * this.length; 
+        const containSquare = new rectangle(this.length, this.length);
+        return containSquare.area;
       }
       else if (this.length > 0 && this.width > 0 && this.length < this.width) {
-        return this.width * this.width;
+        const containSquare = new rectangle(this.width, this.width);
+        return containSquare.area;
       }
       else {return `This is not a valid rectangle`};
       }
@@ -64,10 +67,12 @@ class rectangle extends shape {
     }
     contain() {
         if (this.base > 0 && this.height > 0 && this.base >= this.height) {
-          return this.base * this.base;
+          const containSquare = new rectangle(this.base, this.base);
+          return containSquare.area;
         }
         else if (this.base > 0 && this.height > 0 && this.base < this.height) {
-          return this.height * this.height;
+          const containSquare = new rectangle(this.height, this.height);
+          return containSquare.area;
         }
         else {return `This is not a valid isoceles triantangle`};
         }
@@ -92,7 +97,8 @@ class rectangle extends shape {
     }
     contain() {
       if (this.radius > 0) {
-        return this.diameter * this.diameter;
+        const containSquare = new rectangle(this.diameter, this.diameter); 
+        return containSquare.area;
       }
       else {return `This is not a valid circle`};
       }
@@ -112,34 +118,50 @@ class rectangle extends shape {
     output ("Creating Rectangle");
     const length = parseInt (await input ("Please enter Length: "));
     const width = parseInt (await input ("Please enter Width: "));
+    if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) {
+      output ("Invalid Input");
+    }
+    else {
     const shapeRectangle = new rectangle (length, width);
     shapeArray.push(shapeRectangle);
     output (`Total Perimeter: ${shapeRectangle.perimeter}`);
     output (`Total Area: ${shapeRectangle.area}`);
     output (`Total Area of Containing Square: ${shapeRectangle.contain()}`);
     }
+  }
 
   else if (shapeInput === 2) {
     output ("Creating Triangle");
     const base = parseInt (await input ("Please enter Base: "));
     const height = parseInt (await input ("Please enter Height: "));
+    if (isNaN(base) || isNaN(height) || base <= 0 || height <= 0) {
+      output ("Invalid Input");
+    }
+    else {
+
     const shapeTriangle = new triangle (base, height);
     shapeArray.push(shapeTriangle);
     output (`Total Perimeter: ${shapeTriangle.perimeter}`);
     output (`Total Area: ${shapeTriangle.area}`);
     output (`Total Area of Containing Square: ${shapeTriangle.contain()}`);
     }
-  
+  }
+
   else if (shapeInput === 3) {
     output ("Creating Circle");
     const radius = parseInt (await input ("Please enter Radius: "));
+    if (isNaN (radius) || radius <= 0) {
+      output ("Invalid Input");
+    }
+    else {
     const shapeCircle = new circle (radius);
     shapeArray.push(shapeCircle);
     output (`Total Circumference: ${shapeCircle.perimeter}`);
     output (`Total Area: ${shapeCircle.area}`);
     output (`Total Area of Containing Square: ${shapeCircle.contain()}`);
     }
-  
+  }
+
   else {
     output ("Goodbye");
     }

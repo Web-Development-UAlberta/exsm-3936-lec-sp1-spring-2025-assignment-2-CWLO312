@@ -104,6 +104,7 @@ class rectangle extends shape {
       }
     }
 
+// bonus point class of semicircle
 class semicircle extends shape {
   constructor(radius) {
       super();

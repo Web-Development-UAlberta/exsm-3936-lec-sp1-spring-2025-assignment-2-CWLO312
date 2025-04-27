@@ -1,14 +1,73 @@
-// eslint-disable-next-line no-unused-vars
-/* global output, input */
-// eslint-disable-next-line no-unused-vars
 async function main() {
-  // This is where the code you're actually experimenting with goes.
-
-  const prompt = "Please enter your name, or 'Exit' to quit: ";
-  let name = await input(prompt);
-
-  while (name !== "Exit") {
-    output("Hello, " + name + "!");
-    name = await input(prompt);
+ class shape {
+  constructor() {
+  if (new.target === shape) {
+    throw new Error("Abstract class cannot be instantiated.");
+    }
   }
+  
+  get perimeter() {
+    throw new Error("Abstract perimeter was not implemented."); 
+  }
+  get area() {
+    throw new Error("Abstract area was not implemented."); 
+  }
+  contain() {
+    throw new Error("Abstract method contain() was not implemented.");
+  }
+ }
+
+class rectangle extends shape {
+  
+  constructor(length, width) {
+    super();
+    this.length = length;
+    this.width = width;
+  }
+
+  get isSquare() {
+    if (this.length > 0 && this.width > 0 && this.length === this.width) {
+      return true;
+    }
+    return false;
+  }
+  get perimeter() { 
+    return 2 * (this.length + this.width);
+  }
+  get area() {
+    return this.length * this.width;  
+  }
+
+  contain() {
+    if (this.isSquare === true) {
+      return this.length * this.width;
+    }
+    else if (this.isSquare === false) {
+      if (this.length > 0 && this.width > 0 && this.length > this.width) {
+        return this.length * this.length  
+      }
+      else if (this.length > 0 && this.width > 0 && this.length < this.width) {
+        return this.width * this.width
+      };
+      return `This is not a valid rectangle`;
+      }
+    }
+
+  }
+
+
+  const shapeArray = [];
+  output ("Select a Shape to Create \n1. Rectangle \n2. Triangle \n3. Circle \n0. Exit")
+  const shapeInput = parseInt (await input ("Choose: "));
+
+  if (shapeInput === 1) {
+    const length = parseInt (await input ("Please enter Length: "));
+    const width = parseInt (await input ("Please enter Width: "));
+    const shapeRectangle = new rectangle (length, width);
+    shapeArray.push(shapeRectangle);
+    output (`Total Perimeter: ${shapeRectangle.perimeter}`);
+    output (`Total Area: ${shapeRectangle.area}`);
+    output (`Total Area of Containing Square: ${shapeRectangle.contain()}`)
+  }
+
 }

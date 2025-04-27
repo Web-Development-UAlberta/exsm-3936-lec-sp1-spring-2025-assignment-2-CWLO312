@@ -1,6 +1,6 @@
 async function main() {
  class shape {
-  constructor() {
+  constructor(color) {
   if (new.target === shape) {
     throw new Error("Abstract class cannot be instantiated.");
     }
@@ -168,6 +168,7 @@ class rectangle extends shape {
   
   } while (shapeInput !== 0);
 
+// for checking sucessful input and output
 const shapeCounter = shapeArray.length;
 for (let i = 0; i < shapeCounter; i++) {
   output (`Shape ${i + 1}: ${shapeArray[i].contain()}`);
